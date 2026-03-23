@@ -8,13 +8,13 @@ from bs4 import BeautifulSoup
 
 
 """
-teamidentifiers = ["LAA", "CAL", "BSN", "NY1", "BRO", "BLN", "MLN", "FLO", "MON", "HOU", "ARI", "ATL", "CHN", 
+teamidentifiers = ["BRO", "BLN", "MLN", "FLO", "MON", "HOU", "ARI", "ATL", "CHN", 
                    "CIN", "COL", "LAN", "SDN", "MIA", "MIL", "NYN", "PHI", "PIT", "SFN", "SLN", "WAS"
                    "PHA", "WS1", "SLA", "KC1", "SE1", "WS2", "BAL", "BOS", "CHA", "CLE", "DET", "HOU"
                    "KCA", "MIN", "NYA", "OAK", "TBA", "TEX", "TOR", "ATH"]
 """
 
-teamidentifiers = ["ANA"]
+teamidentifiers = ["NY1"]
 
 invalidyears = []
 abbreviatednames = []
@@ -23,7 +23,7 @@ for team in teamidentifiers:
 
     
 
-    for year in range(1900, 2026):
+    for year in range(1900, 1960):
         print(year)
         url = f"https://www.retrosheet.org/boxesetc/{year}/U{team}0{year}.htm"
         try:
