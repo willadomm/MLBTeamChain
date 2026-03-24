@@ -8,22 +8,16 @@ from bs4 import BeautifulSoup
 
 
 """
-teamidentifiers = ["BRO", "BLN", "MLN", "FLO", "MON", "HOU", "ARI", "ATL", "CHN", 
-                   "CIN", "COL", "LAN", "SDN", "MIA", "MIL", "NYN", "PHI", "PIT", "SFN", "SLN", "WAS"
-                   "PHA", "WS1", "SLA", "KC1", "SE1", "WS2", "BAL", "BOS", "CHA", "CLE", "DET", "HOU"
-                   "KCA", "MIN", "NYA", "OAK", "TBA", "TEX", "TOR", "ATH"]
+teamidentifiers = ["CHA", "CLE", "DET", "KCA", "MIN", "NYA", "OAK", "TBA", "TEX", "TOR", "ATH", "MLA]
 """
 
-teamidentifiers = ["NY1"]
+teamidentifiers = ["CHA"]
 
 invalidyears = []
 abbreviatednames = []
 datalist = []
 for team in teamidentifiers:
-
-    
-
-    for year in range(1900, 1960):
+    for year in range(1900, 2026):
         print(year)
         url = f"https://www.retrosheet.org/boxesetc/{year}/U{team}0{year}.htm"
         try:
@@ -98,15 +92,3 @@ filestring = f"{team}.json"
 
 with open ("json data/" + filestring, "w") as file:
     json.dump(datalist, file, indent=2)
-
-   
-
-
-    
-    
-
-
-
-
-
-
