@@ -6,18 +6,16 @@ from bs4 import BeautifulSoup
 
 
 """
-Problems.
-
-1. Some pages don't have team shutouts text. Will have to rescrape all
+P
 
 
 
 teamidentifiers = ["LAA", "CAL", "BSN", "NY1", "BRO", "BLN", "MLN", "FLO", "MON", "SEA", "ARI", "ATL", "CHN", 
-                   "CIN", "COL", "LAN", "SDN", "MIA", "MIL", "NYN", "PHI", "PIT", "SFN", "SLN", "WAS"
+                   ##"CIN", "COL", "LAN", "SDN", "MIA", "MIL", ##"NYN", "PHI", "PIT", "SFN", "SLN", "WAS"
                    ###"PHA", "WS1", "SLA", "KC1", "SE1", ###"WS2", "BAL", "BOS", "CHA", "CLE", "DET", "HOU"
                    ###"KCA", "MIN", "NYA", "OAK", "TBA", "TEX", "TOR", "ATH"]
 """
-teamidentifiers = ["PHA", "WS1", "SLA", "KC1", "SE1"]
+teamidentifiers = ["CIN", "COL", "LAN", "SDN", "MIA", "MIL"]
 
 dupes = []
 with open("dupes.txt", "r") as dupesfile:
