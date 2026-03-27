@@ -6,30 +6,33 @@ from bs4 import BeautifulSoup
 
 
 """
+Problems.
+
+1. Some pages don't have team shutouts text. Will have to rescrape all
 
 
 
-teamidentifiers = ["LAA", "CAL", "BSN", "NY1", "BRO", "BLN", "MLN", "MON", "ARI", "ATL", "CHN", 
-                   "COL","SDN", "MIL", "NYN", "PHI", "PIT", "SLN", "WAS"
-                   "PHA", "WS1", "KC1", "SE1", "WS2", "BAL", "BOS", "CHA", "CLE", "DET",
-                   "KCA", "MIN", "NYA", "OAK"]
+teamidentifiers = ["LAA", "CAL", "BSN", "NY1", "BRO", "BLN", "MLN", "FLO", "MON", "SEA", "ARI", "ATL", "CHN", 
+                   "CIN", "COL", "LAN", "SDN", "MIA", "MIL", "NYN", "PHI", "PIT", "SFN", "SLN", "WAS"
+                   ###"PHA", "WS1", "SLA", "KC1", "SE1", ###"WS2", "BAL", "BOS", "CHA", "CLE", "DET", "HOU"
+                   ###"KCA", "MIN", "NYA", "OAK", "TBA", "TEX", "TOR", "ATH"]
 """
-teamidentifiers = []
+teamidentifiers = ["PHA", "WS1", "SLA", "KC1", "SE1"]
 
 dupes = []
 with open("dupes.txt", "r") as dupesfile:
     for line in dupesfile:
-        dupes.append(line[:-1] + " ")
+        dupes.append(line[:-1])
+        
 
 
 
 invalidyears = []
-abbreviatednames = []
 
 for team in teamidentifiers:
     datalist = []
     print(team)
-    for year in range(1950, 2026):
+    for year in range(1900, 2026):
         print(year)
         url = f"https://www.retrosheet.org/boxesetc/{year}/U{team}0{year}.htm"
         try:
@@ -41,26 +44,14 @@ for team in teamidentifiers:
         time.sleep(1)
 
         soup = BeautifulSoup(page.text, 'html.parser')
-        
-        name2tag = soup.find('pre', string="Team shutouts may be more than the composite totals for all pitchers due to instances in which more than one pitcher combined for a shutout.")
-
-        if not name2tag:
-            continue
-
-        roster = []
-        while True:
-            name2tag = name2tag.find_next('a')
-            if not name2tag:
-                break
-            roster.append(name2tag)
-
-
 
         
-
         
+        roster = soup.find_all('a')
 
-        
+        roster = roster[52:]
+
+
         playersarray = []
 
         for a in roster:
@@ -87,6 +78,8 @@ for team in teamidentifiers:
                     name = playersoup.find('h2')
                     playername = name.get_text()
                 
+                playername = playername.strip()
+                
                 
                 if playername in dupes:
                     stringurl = str(a.get("href"))
@@ -97,6 +90,7 @@ for team in teamidentifiers:
                     
                     tdarray = playersoup.find_all('td')
                     date = tdarray[1]
+                    playername = playername + " "
                     for char in str(date):
                         if char.isnumeric():
                             playername = playername + char
