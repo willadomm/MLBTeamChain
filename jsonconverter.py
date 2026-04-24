@@ -101,7 +101,7 @@ def breathfirstsearch(originplayer, destinationplayer, dictionary):
             depthcount += 1
             while queue:
                   currentplayer = queue.popleft()
-                  explored.append(currentplayer)
+                  
                   print(currentplayer)
                   for teamlist in dictionary[currentplayer]:
                         for player in teamlist[1]:
@@ -109,6 +109,8 @@ def breathfirstsearch(originplayer, destinationplayer, dictionary):
                                     print(depthcount)
                                     return 
                               elif player not in explored:
+                                    print(player)
+                                    explored.append(player)
                                     incomingqueue.append(player)
                   
 
@@ -136,7 +138,7 @@ for file in os.scandir(directory):
 
 
 
-breathfirstsearch("Derek Jeter", "Mickey Mantle", players_dictionary)
+breathfirstsearch("Landen Roupp", "Babe Ruth", players_dictionary)
 #score = determinedgameloop("Tyler Rogers", "Trevor Rogers", players_dictionary)
 
 #print("You won!")
