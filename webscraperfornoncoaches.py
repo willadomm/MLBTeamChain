@@ -5,16 +5,20 @@ import requests
 from bs4 import BeautifulSoup
 
 
+
+def tagfunction(tag):
+    return len(tag.find_all('pre')) == 0 and ("Manager " in tag.text or "Manager: " in tag.text)
+
 """
 
 
 
-teamidentifiers = [###"ANA", ###"LAA", "CAL", "BSN", "NY1", "BRO", "BLN", "MLN", "FLO", "MON", "SEA", "ARI", "ATL", "CHN", 
-                   ##"CIN", "COL", "LAN", "SDN", "MIA", "MIL", ##"NYN", "PHI", "PIT", "SFN", "SLN", "WAS"
-                   ###"PHA", "WS1", "SLA", "KC1", "SE1", ###"WS2", "BAL", "BOS", "CHA", "CLE", "DET", "HOU"
+teamidentifiers = ["ANA", "LAA", "CAL", "BSN", "NY1", "BRO", "BLN", ###"MLN", "FLO", "MON", "SEA", "ARI", "ATL", "CHN", 
+                   ###"CIN", "COL", "LAN", "SDN", "MIA", "MIL", ###"NYN", "PHI", "PIT", "SFN", "SLN", "WAS"
+                ###"PHA", "WS1", "SLA", "KC1", "SE1", "WS2", "BAL", ###"BOS", "CHA", "CLE", "DET", "HOU"
                    ###"KCA", "MIN", "NYA", "OAK", "TBA", "TEX", "TOR", "ATH"]
 """
-teamidentifiers = ["ANA"]
+teamidentifiers = ["ANA", "LAA", "CAL", "BSN", "NY1", "BRO", "BLN"]
 
 dupes = []
 with open("dupes.txt", "r") as dupesfile:
@@ -29,7 +33,7 @@ invalidyears = []
 for team in teamidentifiers:
     datalist = []
     print(team)
-    for year in range(2000, 2026):
+    for year in range(1900, 2026):
         print(year)
         url = f"https://www.retrosheet.org/boxesetc/{year}/U{team}0{year}.htm"
         try:
@@ -42,13 +46,21 @@ for team in teamidentifiers:
 
         soup = BeautifulSoup(page.text, 'html.parser')
 
+        managertag = soup.find_all(tagfunction)
+
+        if managertag == []:
+            continue
         
         
-        roster = soup.find_all('a')
+        
+        pretags = managertag[0].find_previous_siblings('pre')
 
-        print(roster)
+        roster = []
 
-        roster = roster[52:]
+        for tag in pretags:
+            roster.extend(tag.find_all('a'))
+
+        
 
 
         playersarray = []
@@ -88,11 +100,17 @@ for team in teamidentifiers:
                     playersoup = BeautifulSoup(playerpage.text, 'html.parser')
                     
                     tdarray = playersoup.find_all('td')
-                    date = tdarray[1]
+                    date = tdarray[1].text
+                    playerbday = ""
                     playername = playername + " "
-                    for char in str(date):
+                    for char in date:
                         if char.isnumeric():
-                            playername = playername + char
+                            playerbday = playerbday + char
+                    
+                    playerbday = playerbday[-4:]
+                    playername = playername + playerbday
+                    
+                    
 
 
 
@@ -113,8 +131,9 @@ for team in teamidentifiers:
         if "Read Me" in playersarray:
             playersarray.remove("Read Me")
     
-        if "Read Me " in playersarray:
-            playersarray.remove("Read Me ")
+        if "Team Page" in playersarray:
+            playersarray.remove("Team Page")
+        
 
 
         data = {

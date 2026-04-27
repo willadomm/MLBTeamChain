@@ -109,7 +109,6 @@ def breathfirstsearch(originplayer, destinationplayer, dictionary):
                                     print(depthcount)
                                     return 
                               elif player not in explored:
-                                    print(player)
                                     explored.append(player)
                                     incomingqueue.append(player)
                   
@@ -138,7 +137,7 @@ for file in os.scandir(directory):
 
 
 
-breathfirstsearch("Landen Roupp", "Babe Ruth", players_dictionary)
+breathfirstsearch("Tyler Glasnow", "Jameson Taillon", players_dictionary)
 #score = determinedgameloop("Tyler Rogers", "Trevor Rogers", players_dictionary)
 
 #print("You won!")
