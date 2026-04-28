@@ -1,4 +1,2 @@
-1.  Implement BFS to find fastest path. 
-    a. Implement Python Graph class, then BFS!
-    b. No graph class needed
+1.  Have BFS display full path
 2. Explore Website

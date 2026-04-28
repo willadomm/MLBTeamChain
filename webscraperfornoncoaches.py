@@ -13,7 +13,7 @@ def tagfunction(tag):
 
 
 
-teamidentifiers = ["ANA", "LAA", "CAL", "BSN", "NY1", "BRO", "BLN", ###"MLN", "FLO", "MON", "SEA", "ARI", "ATL", "CHN", 
+teamidentifiers = [###"ANA", "LAA", "CAL", "BSN", "NY1", "BRO", "BLN", ###"MLN", "FLO", "MON", "SEA", "ARI", "ATL", "CHN", 
                    ###"CIN", "COL", "LAN", "SDN", "MIA", "MIL", ###"NYN", "PHI", "PIT", "SFN", "SLN", "WAS"
                 ###"PHA", "WS1", "SLA", "KC1", "SE1", "WS2", "BAL", ###"BOS", "CHA", "CLE", "DET", "HOU"
                    ###"KCA", "MIN", "NYA", "OAK", "TBA", "TEX", "TOR", "ATH"]

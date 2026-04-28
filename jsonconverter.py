@@ -116,7 +116,7 @@ def breathfirstsearch(originplayer, destinationplayer, dictionary):
 
 
 players_dictionary = dict()
-directory = "json data"
+directory = "json data only players"
 
 
 
@@ -137,7 +137,7 @@ for file in os.scandir(directory):
 
 
 
-breathfirstsearch("Tyler Glasnow", "Jameson Taillon", players_dictionary)
+breathfirstsearch("Mickey Mantle", "Mike Morgan", players_dictionary)
 #score = determinedgameloop("Tyler Rogers", "Trevor Rogers", players_dictionary)
 
 #print("You won!")
