@@ -83,6 +83,16 @@ def determinedgameloop(originplayer, destinationplayer, dictionary):
 
 
 def breathfirstsearch(originplayer, destinationplayer, dictionary):
+      listofmutualteams = []
+      for teamlistone in dictionary[originplayer]:
+            for player in teamlistone[1]:
+                  if player == destinationplayer:
+                        listofmutualteams.append(teamlistone[0])
+      
+      if len(listofmutualteams) != 0:
+            print("Players have been teammates on " + str(listofmutualteams))
+            return
+                        
       explored = [originplayer]
       queue = deque()
       incomingqueue = deque()
@@ -111,6 +121,58 @@ def breathfirstsearch(originplayer, destinationplayer, dictionary):
                               elif player not in explored:
                                     explored.append(player)
                                     incomingqueue.append(player)
+
+
+
+def breathfirstsearchfulllist(originplayer, destinationplayer, dictionary):
+      listofmutualteams = []
+      for teamlistone in dictionary[originplayer]:
+            for player in teamlistone[1]:
+                  if player == destinationplayer:
+                        listofmutualteams.append(teamlistone[0])
+      
+      if len(listofmutualteams) != 0:
+            print("Players have been teammates on " + str(listofmutualteams))
+            return
+                        
+      explored = [originplayer]
+      queue = deque()
+      incomingqueue = deque()
+      depthcount = 0
+      currentplayerchain = originplayer
+
+      for teamlist in dictionary[currentplayerchain]:
+            for player in teamlist[1]:
+                  incomingqueue.append([teamlist[0], player])
+      
+      
+      
+      while incomingqueue:
+            queue.extend(incomingqueue)
+            incomingqueue.clear()
+            depthcount += 1
+            while queue:
+                  currentplayerchain = queue.popleft()
+                  
+                  print(currentplayerchain)
+                  for teamlist in dictionary[currentplayerchain[-1]]:
+                        for player in teamlist[1]:
+                              newchain = currentplayerchain + [teamlist[0],player]
+                              if player == destinationplayer:
+                                    print(depthcount)
+                                    print(player)
+                                    print(originplayer, "-> ", currentplayerchain, " -> ", teamlist[0], " -> ", destinationplayer)
+                                    return 
+                              elif player not in explored:
+                                    explored.append(player)
+                                    incomingqueue.append(newchain)
+      
+      
+
+      
+
+                        
+      
                   
 
 
@@ -137,7 +199,7 @@ for file in os.scandir(directory):
 
 
 
-breathfirstsearch("Mickey Mantle", "Mike Morgan", players_dictionary)
+breathfirstsearchfulllist("Carl Yastrzemski", "Mike Yastrzemski", players_dictionary)
 #score = determinedgameloop("Tyler Rogers", "Trevor Rogers", players_dictionary)
 
 #print("You won!")
